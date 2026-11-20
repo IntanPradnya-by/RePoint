@@ -29,6 +29,7 @@ function setMode(nextMode) {
   errorMessage.value = ''
 }
 
+<<<<<<< HEAD
 // Prototype-friendly: accepts any input. A bare name like "budi" becomes budi@gmail.com
 // so the demo works without a real email address.
 function normalizeEmail(value) {
@@ -57,17 +58,37 @@ function validate() {
 async function submit() {
   errorMessage.value = validate()
   if (errorMessage.value) return
+=======
+async function submit() {
+  errorMessage.value = ''
+
+  if (!email.value.trim() || password.value.length < 6) {
+    errorMessage.value = 'Isi email dan kata sandi minimal 6 karakter.'
+    return
+  }
+  if (isSignUp.value && !name.value.trim()) {
+    errorMessage.value = 'Isi nama lengkap kamu.'
+    return
+  }
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 
   submitting.value = true
   try {
     if (isSignUp.value) {
+<<<<<<< HEAD
       await auth.signUp(name.value.trim(), normalizeEmail(email.value), password.value)
     } else {
       await auth.signIn(normalizeEmail(email.value), password.value)
+=======
+      await auth.signUp(name.value.trim(), email.value.trim(), password.value)
+    } else {
+      await auth.signIn(email.value.trim(), password.value)
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
     }
     router.replace(redirectTarget.value)
   } catch (cause) {
     console.error('auth failed', cause)
+<<<<<<< HEAD
     const detail = cause?.message ?? ''
     if (detail.includes('Invalid login credentials')) {
       // Prototype-friendly fallback: if this demo account does not exist yet,
@@ -91,10 +112,16 @@ async function submit() {
         ? 'Pendaftaran belum berhasil. Periksa data kamu lalu coba lagi.'
         : 'Masuk belum berhasil. Periksa koneksi lalu coba lagi.'
     }
+=======
+    errorMessage.value = isSignUp.value
+      ? 'Pendaftaran belum berhasil. Periksa data kamu lalu coba lagi.'
+      : 'Email atau kata sandi tidak sesuai. Coba lagi.'
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
   } finally {
     submitting.value = false
   }
 }
+<<<<<<< HEAD
 
 function emailLooksLikeDemo(value) {
   return value.endsWith('@repoint.test')
@@ -120,6 +147,8 @@ async function demoLogin() {
   }
   router.replace(redirectTarget.value)
 }
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 </script>
 
 <template>
@@ -148,6 +177,7 @@ async function demoLogin() {
         </label>
 
         <label class="field">
+<<<<<<< HEAD
           <span>Email atau nama bebas</span>
           <input
             v-model="email"
@@ -156,6 +186,10 @@ async function demoLogin() {
             inputmode="email"
             :placeholder="isSignUp ? 'Tulis apa saja, contoh: budi123' : 'username@gmail.com atau nama bebas'"
           />
+=======
+          <span>Email</span>
+          <input v-model="email" type="email" autocomplete="email" />
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
         </label>
 
         <label class="field">
@@ -164,12 +198,16 @@ async function demoLogin() {
             v-model="password"
             type="password"
             :autocomplete="isSignUp ? 'new-password' : 'current-password'"
+<<<<<<< HEAD
             :placeholder="isSignUp ? 'Minimal 6 karakter untuk daftar' : 'Kata sandi apa saja'"
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
           />
         </label>
 
         <BaseAlert v-if="errorMessage" tone="danger">{{ errorMessage }}</BaseAlert>
 
+<<<<<<< HEAD
         <p v-if="isSignUp" class="muted auth-note">
           Ini mode prototype: kamu tidak perlu email asli. Tulis nama bebas dan kata sandi apa saja
           (minimal 6 karakter untuk pendaftaran).
@@ -191,6 +229,11 @@ async function demoLogin() {
           Klik tombol di atas untuk mencoba RePoint langsung tanpa mendaftar. Cocok untuk melihat
           cara kerja aplikasi sebelum membuat akun sendiri.
         </p>
+=======
+        <BaseButton type="submit" block :disabled="submitting">
+          {{ submitting ? 'Memproses...' : isSignUp ? 'Daftar Sekarang' : 'Masuk' }}
+        </BaseButton>
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
       </form>
     </BaseCard>
   </div>
@@ -207,7 +250,11 @@ async function demoLogin() {
   width: 100%;
   max-width: 440px;
   display: grid;
+<<<<<<< HEAD
   gap: var(--space-3);
+=======
+  gap: 24px;
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 }
 
 .auth-header {
@@ -221,6 +268,7 @@ async function demoLogin() {
 
 .auth-form {
   display: grid;
+<<<<<<< HEAD
   gap: var(--space-2);
 }
 
@@ -242,5 +290,8 @@ async function demoLogin() {
   flex: 1;
   height: 1px;
   background: var(--border);
+=======
+  gap: 16px;
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 }
 </style>

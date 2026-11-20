@@ -13,7 +13,11 @@ import AdminView from '../views/AdminView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 
 const routes = [
+<<<<<<< HEAD
   { path: '/', name: 'home', component: HomeView },
+=======
+  { path: '/', name: 'home', component: HomeView, meta: { requiresAuth: true } },
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
   { path: '/waste', name: 'waste', component: WasteView, meta: { requiresAuth: true } },
   { path: '/rewards', name: 'rewards', component: RewardsView, meta: { requiresAuth: true } },
   { path: '/wallet', name: 'wallet', component: WalletView, meta: { requiresAuth: true } },

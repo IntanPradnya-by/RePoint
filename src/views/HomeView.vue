@@ -4,20 +4,31 @@ import BaseButton from '../components/base/BaseButton.vue'
 import BaseCard from '../components/base/BaseCard.vue'
 import BaseBadge from '../components/base/BaseBadge.vue'
 import TransactionList from '../components/shared/TransactionList.vue'
+<<<<<<< HEAD
 import WasteCard from '../components/shared/WasteCard.vue'
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 import {
   claimStatusInfo,
   formatDateTime,
   formatNumber
 } from '../composables/useFormatters'
+<<<<<<< HEAD
 import { items, categories } from '../data/items'
+=======
+import { items } from '../data/items'
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 import { usePointsStore } from '../stores/usePointsStore'
 import { useAuthStore } from '../stores/useAuthStore'
 import { useRewardStore } from '../stores/useRewardStore'
 import { useTransactionStore } from '../stores/useTransactionStore'
 
+<<<<<<< HEAD
 const auth = useAuthStore()
 const { isLoggedIn, userName } = auth
+=======
+const { userName } = useAuthStore()
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 const { balance, totalEarned, totalSpent, totalWasteKg } = usePointsStore()
 const { rewards } = useRewardStore()
 const { transactions, transactionsByType } = useTransactionStore()
@@ -32,6 +43,7 @@ const redemptions = computed(() => transactionsByType('penukaran'))
 const activeClaim = computed(() =>
   transactions.value.find((transaction) => transaction.type === 'penukaran' && transaction.claimStatus !== 'selesai')
 )
+<<<<<<< HEAD
 
 const eduSteps = [
   {
@@ -178,6 +190,12 @@ function categoryOf(item) {
 
   <!-- Logged-in student dashboard (unchanged) -->
   <div v-else class="container page">
+=======
+</script>
+
+<template>
+  <div class="container page">
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
     <section class="hero">
       <div class="hero-orbs" aria-hidden="true">
         <span class="orb orb--blue" />
@@ -193,6 +211,7 @@ function categoryOf(item) {
           <BaseButton to="/rewards" variant="ghost">Tukar Reward</BaseButton>
         </div>
       </div>
+<<<<<<< HEAD
       <div class="hero-trash" aria-hidden="true">
         <svg viewBox="0 0 24 24" class="trash-bin">
           <path class="trash-body" d="M5 7h14l-1.5 13a1.5 1.5 0 01-1.5 1.3H8a1.5 1.5 0 01-1.5-1.3L5 7z" fill="rgba(255,255,255,0.9)"/>
@@ -205,6 +224,8 @@ function categoryOf(item) {
         <span class="trash-leaf trash-leaf--1">♻️</span>
         <span class="trash-leaf trash-leaf--2">♻️</span>
       </div>
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
     </section>
 
     <section class="stats grid grid--4">
@@ -416,6 +437,7 @@ function categoryOf(item) {
 
 @media (min-width: 768px) {
   .hero {
+<<<<<<< HEAD
     grid-template-columns: 1fr auto;
     align-items: center;
     padding: 48px 40px;
@@ -569,6 +591,10 @@ function categoryOf(item) {
 .edu-cta-text {
   max-width: 480px;
   color: var(--text-muted);
+=======
+    padding: 48px 40px;
+  }
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 }
 
 .stats {

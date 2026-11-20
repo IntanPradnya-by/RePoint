@@ -1,17 +1,26 @@
 <script setup>
+<<<<<<< HEAD
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
+=======
+import { computed, ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 import { usePointsStore } from '../../stores/usePointsStore'
 import { useAuthStore } from '../../stores/useAuthStore'
 import { formatNumber } from '../../composables/useFormatters'
 import BaseButton from '../base/BaseButton.vue'
 
 const router = useRouter()
+<<<<<<< HEAD
 const route = useRoute()
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 const { balance } = usePointsStore()
 const auth = useAuthStore()
 const { isLoggedIn, isAdmin, userName } = auth
 const menuOpen = ref(false)
+<<<<<<< HEAD
 const dropdownOpen = ref(false)
 const dropdownRoot = ref(null)
 
@@ -40,11 +49,37 @@ const initials = computed(() =>
         .slice(0, 2)
         .toUpperCase()
     : ''
+=======
+
+const baseNavLinks = [
+  { to: '/', label: 'Dashboard' },
+  { to: '/waste', label: 'Katalog Sampah' },
+  { to: '/rewards', label: 'Reward' },
+  { to: '/wallet', label: 'Dompet Poin' },
+  { to: '/history', label: 'Riwayat' },
+  { to: '/about', label: 'Tentang' }
+]
+
+const navLinks = computed(() =>
+  isAdmin.value ? [...baseNavLinks, { to: '/admin', label: 'Persetujuan' }] : baseNavLinks
+)
+
+const initials = computed(() =>
+  userName.value
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase()
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 )
 
 async function handleSignOut() {
   menuOpen.value = false
+<<<<<<< HEAD
   dropdownOpen.value = false
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
   try {
     await auth.signOut()
   } catch (cause) {
@@ -53,6 +88,7 @@ async function handleSignOut() {
   }
   router.replace({ name: 'login' })
 }
+<<<<<<< HEAD
 
 function toggleDropdown() {
   dropdownOpen.value = !dropdownOpen.value
@@ -84,6 +120,8 @@ onBeforeUnmount(() => {
   document.removeEventListener('click', onDocumentClick)
   document.removeEventListener('keydown', onKeydown)
 })
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 </script>
 
 <template>
@@ -94,6 +132,7 @@ onBeforeUnmount(() => {
         <span class="brand-name">RePoint</span>
       </RouterLink>
 
+<<<<<<< HEAD
       <nav class="nav-desktop" aria-label="Navigasi utama">
         <RouterLink to="/" class="nav-link" @click="closeMenus">Dashboard</RouterLink>
         <div v-if="isLoggedIn" ref="dropdownRoot" class="dropdown">
@@ -125,6 +164,12 @@ onBeforeUnmount(() => {
           </div>
         </div>
         <RouterLink to="/about" class="nav-link" @click="closeMenus">Tentang</RouterLink>
+=======
+      <nav v-if="isLoggedIn" class="nav-desktop" aria-label="Navigasi utama">
+        <RouterLink v-for="link in navLinks" :key="link.to" :to="link.to" class="nav-link">
+          {{ link.label }}
+        </RouterLink>
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
       </nav>
 
       <div class="header-actions">
@@ -137,15 +182,27 @@ onBeforeUnmount(() => {
             <span class="avatar">{{ initials }}</span>
             <span class="profile-name">{{ userName }}</span>
           </div>
+<<<<<<< HEAD
           <BaseButton class="header-signout" variant="ghost" size="sm" @click="handleSignOut">Keluar</BaseButton>
         </template>
         <BaseButton v-else to="/login" size="sm">Masuk</BaseButton>
         <button
+=======
+          <BaseButton variant="ghost" size="sm" @click="handleSignOut">Keluar</BaseButton>
+        </template>
+        <BaseButton v-else to="/login" size="sm">Masuk</BaseButton>
+        <button
+          v-if="isLoggedIn"
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
           type="button"
           class="menu-toggle"
           :aria-expanded="menuOpen ? 'true' : 'false'"
           aria-controls="mobile-nav"
+<<<<<<< HEAD
           :aria-label="menuOpen ? 'Tutup menu' : 'Buka menu'"
+=======
+          aria-label="Buka menu"
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
           @click="menuOpen = !menuOpen"
         >
           <span class="menu-bar" />
@@ -155,6 +212,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
+<<<<<<< HEAD
     <nav v-show="menuOpen" id="mobile-nav" class="nav-mobile" aria-label="Navigasi seluler">
       <div class="container nav-mobile-list">
         <RouterLink v-if="!isLoggedIn" to="/" class="nav-link" @click="closeMenus">Beranda</RouterLink>
@@ -187,6 +245,14 @@ onBeforeUnmount(() => {
 
         <RouterLink to="/about" class="nav-link" @click="closeMenus">Tentang</RouterLink>
         <BaseButton v-if="isLoggedIn" variant="ghost" @click="handleSignOut">Keluar</BaseButton>
+=======
+    <nav v-show="isLoggedIn && menuOpen" id="mobile-nav" class="nav-mobile" aria-label="Navigasi seluler">
+      <div class="container nav-mobile-list">
+        <RouterLink v-for="link in navLinks" :key="link.to" :to="link.to" class="nav-link" @click="menuOpen = false">
+          {{ link.label }}
+        </RouterLink>
+        <BaseButton variant="ghost" @click="handleSignOut">Keluar</BaseButton>
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
       </div>
     </nav>
   </header>
@@ -242,6 +308,7 @@ onBeforeUnmount(() => {
 
 .nav-desktop {
   display: none;
+<<<<<<< HEAD
   align-items: center;
   gap: 4px;
 }
@@ -308,6 +375,11 @@ onBeforeUnmount(() => {
   color: var(--primary-800);
 }
 
+=======
+  gap: 4px;
+}
+
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 .nav-link {
   padding: 8px 12px;
   border-radius: var(--radius-pill);
@@ -392,11 +464,17 @@ onBeforeUnmount(() => {
   width: 44px;
   height: 44px;
   padding: 0 10px;
+<<<<<<< HEAD
   flex-shrink: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--surface);
   cursor: pointer;
+=======
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 }
 
 .menu-bar {
@@ -409,6 +487,7 @@ onBeforeUnmount(() => {
 .nav-mobile {
   border-top: 1px solid var(--border);
   background: var(--surface);
+<<<<<<< HEAD
   box-shadow: var(--shadow-md);
 }
 
@@ -419,6 +498,8 @@ onBeforeUnmount(() => {
 
 .nav-mobile-list .base-button {
   margin-top: 8px;
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 }
 
 .nav-mobile-list {
@@ -432,6 +513,7 @@ onBeforeUnmount(() => {
   padding: 12px 16px;
 }
 
+<<<<<<< HEAD
 .nav-collapse {
   display: flex;
   align-items: center;
@@ -483,6 +565,8 @@ onBeforeUnmount(() => {
   }
 }
 
+=======
+>>>>>>> f971b41379dff6461effdb7dac175aecdea14f18
 @media (max-width: 479px) {
   .balance-chip {
     padding: 4px 10px;
